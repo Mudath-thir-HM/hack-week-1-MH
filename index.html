@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Directorate of Procurement — Nigerian Army</title>
+<link rel="stylesheet" href="css/fonts.css">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<div id="stage">
+
+  <!-- ============================ BOOT ============================ -->
+  <section id="boot" class="screen">
+    <div class="boot-inner">
+      <div class="boot-crest">
+        <svg viewBox="0 0 120 120" aria-hidden="true">
+          <path class="fill" d="M60 8 104 30v34c0 26-19 43-44 50-25-7-44-24-44-50V30z"/>
+          <path d="M60 8 104 30v34c0 26-19 43-44 50-25-7-44-24-44-50V30z"/>
+          <path d="M44 96h32" />
+          <path d="M60 34 76 70H44z" />
+          <path d="M60 70v22" />
+        </svg>
+      </div>
+      <div class="boot-army">Nigerian Army</div>
+      <div class="boot-title">Directorate of<br>Procurement</div>
+      <div class="boot-sub">Preparing the plate</div>
+
+      <div class="boot-meter"><i id="boot-bar"></i></div>
+      <div class="boot-row">
+        <span class="boot-status" id="boot-status">Loading records</span>
+        <span class="boot-pct" id="boot-pct">00</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="boot-curtain" id="boot-curtain"><span></span><span></span></div>
+
+  <!-- ============================ MAP ============================ -->
+  <section id="map" class="screen">
+
+    <header class="masthead">
+      <div class="mh-left">
+        <div class="mh-crest">
+          <svg viewBox="0 0 120 120" aria-hidden="true">
+            <path class="fill" d="M60 14 100 33v31c0 24-17 40-40 46-23-6-40-22-40-46V33z"/>
+            <path d="M60 14 100 33v31c0 24-17 40-40 46-23-6-40-22-40-46V33z"/>
+            <path d="M60 38 74 70H46z"/>
+          </svg>
+        </div>
+        <div>
+          <div class="mh-army">Nigerian Army</div>
+          <div class="mh-name">Directorate of Procurement</div>
+        </div>
+      </div>
+      <div class="mh-right">
+        <div class="mh-est">Established <b>06 August 2015</b></div>
+        <div class="mh-est">Under the <b>Public Procurement Act 2007</b></div>
+      </div>
+    </header>
+
+    <div class="headline" id="headline">
+      <div class="hl-kicker">The plate</div>
+      <h1 class="hl-title">Ten rooms.<br>One <em>ledger.</em></h1>
+      <p class="hl-sub">Everything the Army buys is decided inside this plan — by which cell, under which duty.</p>
+      <div class="hl-rule"></div>
+      <div class="hl-hint"><span class="dot"></span> Touch a room to open its file</div>
+    </div>
+
+    <div class="plate-holder">
+      <div id="plate">
+        <svg viewBox="0 0 1500 780" aria-label="Plan of the Directorate of Procurement">
+          <!-- compound -->
+          <rect x="100" y="74" width="1100" height="652" fill="none"
+                stroke="rgba(24,64,50,.34)" stroke-width="1"/>
+          <text class="r-sub" x="1200" y="62" text-anchor="end">PLATE 01</text>
+
+          <!-- authority -->
+          <g id="g-coas">
+            <rect x="340" y="6" width="440" height="52" fill="none" stroke="rgba(24,64,50,.55)" stroke-width="1"/>
+            <text class="r-title" x="360" y="28" font-size="11.5">OFFICE OF THE CHIEF OF ARMY STAFF</text>
+            <text class="r-sub" x="360" y="44">UNDER WHOSE AUSPICES THE DIRECTORATE WORKS</text>
+          </g>
+          <path class="draw-dash" d="M560 58 L 560 116"/>
+
+          <!-- the director -->
+          <g id="g-dproc">
+            <rect x="300" y="116" width="520" height="80" fill="rgba(31,90,71,.055)" stroke="rgba(24,64,50,.62)" stroke-width="1"/>
+            <text class="r-title" x="322" y="146" font-size="15">DIRECTOR OF PROCUREMENT</text>
+            <text class="r-sub" x="322" y="168">D PROC · SECRETARY, NA PPC</text>
+          </g>
+
+          <!-- spine -->
+          <g class="wall-2">
+            <path d="M560 196 L 560 222"/><path d="M310 222 L 1010 222"/>
+            <path d="M310 222 L 310 250"/><path d="M660 222 L 660 250"/><path d="M1010 222 L 1010 250"/>
+          </g>
+
+          <!-- main cells -->
+          <g id="g-hard">
+            <rect x="150" y="250" width="320" height="130" fill="rgba(31,90,71,.055)" stroke="rgba(24,64,50,.62)" stroke-width="1"/>
+            <text class="r-title" x="172" y="288">HARD PROCUREMENT</text>
+            <text class="r-sub" x="172" y="308">MAIN CELL · DD</text>
+          </g>
+          <g id="g-soft">
+            <rect x="500" y="250" width="320" height="130" fill="rgba(31,90,71,.055)" stroke="rgba(24,64,50,.62)" stroke-width="1"/>
+            <text class="r-title" x="522" y="288">SOFT PROCUREMENT</text>
+            <text class="r-sub" x="522" y="308">MAIN CELL · DD</text>
+          </g>
+          <g id="g-atb">
+            <rect x="850" y="250" width="320" height="130" fill="rgba(31,90,71,.055)" stroke="rgba(24,64,50,.62)" stroke-width="1"/>
+            <text class="r-title" x="872" y="280" font-size="12">ARMY TENDERS BOARD</text>
+            <text class="r-title" x="872" y="298" font-size="12">WORKS &amp; SERVICES</text>
+            <text class="r-sub" x="872" y="318">MAIN CELL · DD</text>
+          </g>
+
+          <!-- second row -->
+          <g id="g-ppc">
+            <rect x="150" y="430" width="490" height="120" fill="none" stroke="rgba(24,64,50,.55)" stroke-width="1"/>
+            <text class="r-title" x="172" y="466" font-size="12">PROCUREMENT PLANNING COMMITTEE</text>
+            <text class="r-sub" x="172" y="488">SECRETARIAT · D PROC AS SECRETARY</text>
+          </g>
+
+          <g id="g-support">
+            <rect x="680" y="430" width="490" height="120" fill="none" stroke="rgba(24,64,50,.55)" stroke-width="1"/>
+            <text class="r-title" x="702" y="466" font-size="12">FINANCE · LEGAL · COMPLIANCE</text>
+            <text class="r-sub" x="702" y="488">SUPPORTING CELLS · AD</text>
+          </g>
+
+          <!-- third row -->
+          <g id="g-foundation">
+            <rect x="150" y="600" width="320" height="86" fill="none" stroke="rgba(24,64,50,.55)" stroke-width="1"/>
+            <text class="r-title" x="172" y="632">06 AUGUST 2015</text>
+            <text class="r-sub" x="172" y="652">PUBLIC PROCUREMENT ACT 2007</text>
+          </g>
+          <g id="g-portal">
+            <rect x="500" y="600" width="320" height="86" fill="none" stroke="rgba(24,64,50,.55)" stroke-width="1"/>
+            <text class="r-title" x="522" y="632">PROCUREMENT PORTAL</text>
+            <text class="r-sub" x="522" y="652">WHEN ESTABLISHED</text>
+          </g>
+          <g id="g-registry">
+            <rect x="850" y="600" width="320" height="86" fill="none" stroke="rgba(24,64,50,.55)" stroke-width="1"/>
+            <text class="r-title" x="872" y="632">CONTRACTOR REGISTRY</text>
+            <text class="r-sub" x="872" y="652">INTENDING CONTRACTORS</text>
+          </g>
+
+          <g class="nodes" id="nodes"></g>
+        </svg>
+      </div>
+    </div>
+
+        <div class="title-block">
+      <div class="row"><span>Plate 01</span><span>Plan of the Directorate</span></div>
+    </div>
+
+        <div class="plate-vignette"></div>
+    <div class="sheet-frame"><i></i><i></i><i></i><i></i></div>
+  </section>
+
+  <!-- ============================ DETAIL ============================ -->
+  <section id="detail" class="screen is-hidden">
+    <div id="detail-map-scrim"></div>
+
+    <button id="back" aria-label="Back to the plate">
+      <svg viewBox="0 0 24 24"><path d="M15 5 8 12l7 7"/></svg>
+      <span>The plate</span>
+    </button>
+
+    <div id="dossier">
+      <div class="dossier-scroll" id="dossier-scroll"></div>
+    </div>
+
+    <button id="next" aria-label="Next room">
+      <span id="next-label">Next room</span>
+      <svg viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></svg>
+    </button>
+
+    <div id="idle">Returning to the plate…</div>
+  </section>
+
+</div>
+
+<script src="assets/js/gsap.min.js"></script>
+<script src="data/directorate.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
