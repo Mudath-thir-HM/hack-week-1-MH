@@ -67,6 +67,36 @@
     gsap.set(g, { transformOrigin: p[0] + 'px ' + p[1] + 'px' });
   });
 
+  /* ------------------------------------------- whole rooms act as one button */
+  var mapEl = document.getElementById('map');
+  Array.prototype.forEach.call(document.querySelectorAll('.zone'), function (zone) {
+    var id = zone.getAttribute('data-node');
+    var pin = pinEls[id];
+    if (!pin) return;
+
+    zone.addEventListener('click', function () { openNode(id); });
+
+    zone.addEventListener('pointerenter', function () {
+      if (openId) return;
+      pin.classList.add('is-hover');
+      zone.classList.add('is-hover');
+    });
+    zone.addEventListener('pointerleave', function () {
+      pin.classList.remove('is-hover');
+      zone.classList.remove('is-hover');
+    });
+    /* touch: flash the room, then open it */
+    zone.addEventListener('pointerdown', function () {
+      if (openId) return;
+      pin.classList.add('is-hover');
+      zone.classList.add('is-hover');
+      setTimeout(function () {
+        pin.classList.remove('is-hover');
+        zone.classList.remove('is-hover');
+      }, 260);
+    });
+  });
+
   /* --------------------------------------------------------------- dossier */
   function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;'); }
 
@@ -190,6 +220,7 @@
     nextLabel.textContent = 'Next · ' + nextNode.pin;
 
     detail.classList.remove('is-hidden');
+    mapEl.classList.add('is-inert');
 
     var tl = gsap.timeline({ onComplete: function () { busy = false; } });
 
@@ -214,6 +245,7 @@
     var tl = gsap.timeline({
       onComplete: function () {
         busy = false; openId = null;
+        mapEl.classList.remove('is-inert');
         detail.classList.add('is-hidden');
         Object.keys(pinEls).forEach(function (k) {
           pinEls[k].classList.remove('is-dim', 'is-active');
@@ -400,8 +432,24 @@
         if (lower && lower.scrollHeight - lower.clientHeight > 2) bad.push(n.id + ':lower');
         if (box && box.scrollHeight - box.clientHeight > 2) bad.push(n.id + ':panel');
       });
-      document.title = bad.length ? 'OVERFLOW ' + bad.join(' ') : 'OK-ALL-FIT';
+      /* room click must open the matching file */
+      var zone = document.querySelector('.zone[data-node="soft"]');
+      if (zone) {
+        zone.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+        var t = document.querySelector('.d-title');
+        if (!t || t.textContent.indexOf('Soft') === -1) bad.push('zone-click');
+      }
+      document.title = bad.length ? 'ISSUE ' + bad.join(' ') : 'OK-ALL-FIT';
     }, 700);
+  }
+
+  var hv = /[?&]hover=([a-z]+)/.exec(location.search);
+  if (hv && pinEls[hv[1]]) {
+    setTimeout(function () {
+      pinEls[hv[1]].classList.add('is-hover');
+      var z = document.querySelector('.zone[data-node="' + hv[1] + '"]');
+      if (z) z.classList.add('is-hover');
+    }, 1500);
   }
 
   var m = /^#n=([a-z]+)$/.exec(location.hash || '');

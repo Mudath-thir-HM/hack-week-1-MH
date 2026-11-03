@@ -246,10 +246,15 @@ button { font: inherit; color: inherit; background: none; border: 0; }
   opacity: 0; transition: opacity .3s ease;
 }
 .node .halo { fill: none; stroke: var(--rust); stroke-width: 1; opacity: 0; }
-.node:hover .ring { fill: #A8853F; stroke: #A8853F; }
-.node:hover .num  { fill: #0A231B; }
+.node:hover .ring  { fill: #F7F2E4; stroke: #A8853F; stroke-width: 1.9; }
+.node:hover .num   { fill: #0A231B; }
 .node:hover .pin-label { opacity: 1; }
-.node.is-active .ring { fill: #A8853F; stroke: #A8853F; }
+
+/* a whole room behaves like its pin */
+.node.is-hover .ring  { fill: #F7F2E4; stroke: #A8853F; stroke-width: 1.9; }
+.node.is-hover .num   { fill: #0A231B; }
+.node.is-hover .pin-label { opacity: 1; }
+.node.is-active .ring { fill: #F7F2E4; stroke: #A8853F; stroke-width: 1.9; }
 .node.is-active .num  { fill: #0A231B; }
 .node.is-dim .ring    { opacity: .28; }
 .node.is-dim .num     { opacity: .28; }
@@ -558,3 +563,14 @@ button { font: inherit; color: inherit; background: none; border: 0; }
 
 /* keep the masthead clear of the button */
 .masthead { right: 132px; }
+
+/* ---------------- rooms as hit zones ---------------- */
+.zone { cursor: pointer; }
+.zone rect { transition: fill .22s ease, stroke .22s ease; }
+.zone.is-hover rect {
+  fill: rgba(168, 133, 63, .13);
+  stroke: #A8853F;
+  stroke-width: 1.4;
+}
+.zone:active rect { fill: rgba(168, 133, 63, .2); }
+#map.is-inert { pointer-events: none; }
