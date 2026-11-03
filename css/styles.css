@@ -477,12 +477,6 @@ button { font: inherit; color: inherit; background: none; border: 0; }
 #next:hover { border-color: var(--brass); color: var(--ivory); background: rgba(176, 141, 79, .1); }
 #next svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; }
 
-#detail-map-scrim {
-  position: absolute; inset: 0; pointer-events: none; z-index: 20;
-  background: linear-gradient(90deg, rgba(10, 8, 6, .18) 0%, rgba(10, 8, 6, .3) 34%, rgba(10, 8, 6, .55) 52%);
-  opacity: 0;
-}
-
 /* idle nudge */
 #idle {
   position: absolute; left: 50%; bottom: 60px; transform: translateX(-50%);

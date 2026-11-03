@@ -144,7 +144,6 @@
   /* ------------------------------------------------------------ transitions */
   var plate = document.getElementById('plate');
   var headline = document.getElementById('headline');
-  var scrim = document.getElementById('detail-map-scrim');
   var detail = document.getElementById('detail');
   var dossier = document.getElementById('dossier');
   var scrollBox = document.getElementById('dossier-scroll');
@@ -198,7 +197,6 @@
       .to('.title-block, .scale-bar, .masthead', { opacity: 0, duration: 0.3 }, 0)
       .to(plate, { filter: 'blur(3px)', duration: 0.9, ease: 'power2.inOut' }, 0)
       .to(plate, { x: dx, y: dy, scale: ZOOM, duration: 1.05, ease: 'power3.inOut' }, 0)
-      .to(scrim, { opacity: 1, duration: 0.7, ease: 'power2.out' }, 0.25)
       .to(dossier, { clipPath: 'inset(0% 0% 0% 0%)', duration: 0.75, ease: 'power3.inOut' }, 0.42)
       .to(scrollBox.children, {
         opacity: 1, y: 0, duration: 0.7, ease: 'power3.out', stagger: 0.055
@@ -226,7 +224,6 @@
     tl.to(scrollBox.children, { opacity: 0, y: 16, duration: 0.3, ease: 'power2.in', stagger: 0.02 }, 0)
       .to([backBtn, nextBtn], { opacity: 0, duration: 0.25 }, 0)
       .to(dossier, { clipPath: 'inset(0% 0% 0% 100%)', duration: 0.6, ease: 'power3.inOut' }, 0.12)
-      .to(scrim, { opacity: 0, duration: 0.6, ease: 'power2.out' }, 0.3)
       .to(plate, { x: 0, y: 0, scale: BASE, filter: 'blur(0px)', duration: 1.0, ease: 'power3.inOut' }, 0.3)
       .to(headline, { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out' }, 0.65)
       .to('.title-block, .scale-bar, .masthead', { opacity: 1, duration: 0.5 }, 0.7);
