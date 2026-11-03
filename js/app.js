@@ -18,6 +18,7 @@
   var PIN = {
     coas:       [756, 28],
     dproc:      [796, 150],
+    officers:   [1146, 150],
     hard:       [446, 310],
     soft:       [796, 310],
     atb:        [1146, 310],
@@ -47,11 +48,11 @@
 
     var halo = document.createElementNS(SVGNS, 'circle');
     halo.setAttribute('class', 'halo');
-    halo.setAttribute('cx', p[0]); halo.setAttribute('cy', p[1]); halo.setAttribute('r', 28);
+    halo.setAttribute('cx', p[0]); halo.setAttribute('cy', p[1]); halo.setAttribute('r', 30);
 
     var ring = document.createElementNS(SVGNS, 'circle');
     ring.setAttribute('class', 'ring');
-    ring.setAttribute('cx', p[0]); ring.setAttribute('cy', p[1]); ring.setAttribute('r', 17);
+    ring.setAttribute('cx', p[0]); ring.setAttribute('cy', p[1]); ring.setAttribute('r', 19);
 
     var num = document.createElementNS(SVGNS, 'text');
     num.setAttribute('class', 'num');
@@ -72,7 +73,7 @@
   function indexHTML(current) {
     var rows = NODES.map(function (n) {
       return '<button class="ix' + (n.id === current ? ' is-on' : '') + '" data-goto="' + n.id + '">' +
-             '<i>' + n.no + '</i><span>' + esc(n.pin) + '</span></button>';
+             '<i>' + n.no + '</i><span>' + esc(n.short || n.pin) + '</span></button>';
     }).join('');
     return '<aside class="d-index"><h4>On this plate</h4><nav>' + rows + '</nav></aside>';
   }
@@ -92,6 +93,14 @@
             (n.signature ? '<span class="sig">' + esc(n.signature) + '</span>' : '') +
             '<span>' + esc(n.portraitTitle) + '</span></div>' +
         '</div>';
+    }
+
+    var gallery = '';
+    if (n.gallery) {
+      gallery = '<div class="d-gallery">' + DIRECTORATE.roster.map(function (p) {
+        return '<figure><img src="' + p.img + '" alt="' + esc(p.name) + '">' +
+               '<figcaption>' + esc(p.name) + '</figcaption></figure>';
+      }).join('') + '</div>';
     }
 
     var lower = '';
@@ -127,6 +136,7 @@
         indexHTML(n.id) +
       '</div>' +
 
+      gallery +
       (lower ? '<div class="d-lower">' + lower + '</div>' : '') +
       '<div class="d-facts">' + facts + '</div>';
   }
@@ -186,7 +196,7 @@
 
     tl.to(headline, { opacity: 0, y: -16, duration: 0.45, ease: 'power2.in' }, 0)
       .to('.title-block, .scale-bar, .masthead', { opacity: 0, duration: 0.3 }, 0)
-      .to(plate, { filter: 'blur(4px)', duration: 0.9, ease: 'power2.inOut' }, 0)
+      .to(plate, { filter: 'blur(3px)', duration: 0.9, ease: 'power2.inOut' }, 0)
       .to(plate, { x: dx, y: dy, scale: ZOOM, duration: 1.05, ease: 'power3.inOut' }, 0)
       .to(scrim, { opacity: 1, duration: 0.7, ease: 'power2.out' }, 0.25)
       .to(dossier, { clipPath: 'inset(0% 0% 0% 0%)', duration: 0.75, ease: 'power3.inOut' }, 0.42)
@@ -286,12 +296,10 @@
     if (location.search.indexOf('bootonly') > -1) {
       document.getElementById('boot-bar').style.width = '68%';
       document.getElementById('boot-pct').textContent = '68';
-      document.getElementById('boot-curtain').style.display = 'none';
       return;
     }
     if (STATIC || location.search.indexOf('skip') > -1) {
       document.getElementById('boot').style.display = 'none';
-      document.getElementById('boot-curtain').style.display = 'none';
       introMap();
       return;
     }
@@ -313,14 +321,14 @@
       }
     });
 
-    Promise.all([fontsReady, new Promise(function (r) { setTimeout(r, 2000); })]).then(function () {
+    var floor = new Promise(function (r) { setTimeout(r, 2000); });
+    var ceiling = new Promise(function (r) { setTimeout(r, 5000); });
+    Promise.race([Promise.all([fontsReady, floor]), ceiling]).then(function () {
       var tl = gsap.timeline();
-      tl.to('.boot-inner', { opacity: 0, y: -18, duration: 0.5, ease: 'power2.in' })
-        .to('#boot-curtain span:first-child', { xPercent: -100, duration: 0.95, ease: 'power4.inOut' }, 0.35)
-        .to('#boot-curtain span:last-child', { xPercent: 100, duration: 0.95, ease: 'power4.inOut' }, 0.35)
-        .add(introMap, 0.55)
-        .set('#boot', { display: 'none' })
-        .set('#boot-curtain', { display: 'none' });
+      tl.to('.boot-inner', { opacity: 0, y: -22, duration: 0.55, ease: 'power2.in' }, 0)
+        .add(introMap, 0.25)
+        .to('#boot', { yPercent: -100, duration: 1.15, ease: 'power4.inOut' }, 0.3)
+        .set('#boot', { display: 'none' });
     });
   }
 

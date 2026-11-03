@@ -25,6 +25,7 @@ const DIRECTORATE = {
     {
       id: 'coas',
       no: '01',
+      short: 'The COAS',
       kind: 'Authority',
       pin: 'Office of the COAS',
       title: 'Office of the Chief of Army Staff',
@@ -49,6 +50,7 @@ const DIRECTORATE = {
     {
       id: 'dproc',
       no: '02',
+      short: 'The Director',
       kind: 'Head of Directorate',
       pin: 'The Director',
       title: 'The Director of Procurement',
@@ -110,9 +112,31 @@ const DIRECTORATE = {
       rosterNote: 'Portraits on file at the Directorate.'
     },
 
+
+    {
+      id: 'officers',
+      no: '03',
+      short: 'The Officers',
+      kind: 'Portraits',
+      pin: 'The Officers',
+      title: 'The Officers',
+      sub: 'Portraits held by the Directorate',
+      lede: 'The faces that carry the work.',
+      body: [
+        'Portraits held by the Directorate and displayed in its offices — kept here so a visitor can put a face to the rooms they have just walked through.'
+      ],
+      gallery: true,
+      facts: [
+        { k: 'Portraits on file', v: 'Ten' },
+        { k: 'Held by', v: 'The Directorate' },
+        { k: 'Serving Director', v: 'Maj Gen SY Yakasai' }
+      ]
+    },
+
     {
       id: 'hard',
-      no: '03',
+      no: '04',
+      short: 'Hard',
       kind: 'Main cell',
       pin: 'Hard Procurement',
       title: 'Hard Procurement',
@@ -135,7 +159,8 @@ const DIRECTORATE = {
 
     {
       id: 'soft',
-      no: '04',
+      no: '05',
+      short: 'Soft',
       kind: 'Main cell',
       pin: 'Soft Procurement',
       title: 'Soft Procurement',
@@ -158,7 +183,8 @@ const DIRECTORATE = {
 
     {
       id: 'atb',
-      no: '05',
+      no: '06',
+      short: 'Tenders',
       kind: 'Main cell',
       pin: 'Tenders Board / Works',
       title: 'Army Tenders Board / Works & Services',
@@ -181,7 +207,8 @@ const DIRECTORATE = {
 
     {
       id: 'ppc',
-      no: '06',
+      no: '07',
+      short: 'The PPC',
       kind: 'Secretariat',
       pin: 'NA PPC',
       title: 'NA Procurement Planning Committee',
@@ -204,7 +231,8 @@ const DIRECTORATE = {
 
     {
       id: 'support',
-      no: '07',
+      no: '08',
+      short: 'Support',
       kind: 'Supporting cells',
       pin: 'Finance · Legal · Compliance',
       title: 'Supporting Cells',
@@ -228,7 +256,8 @@ const DIRECTORATE = {
 
     {
       id: 'foundation',
-      no: '08',
+      no: '09',
+      short: 'Established',
       kind: 'Establishment',
       pin: 'The foundation',
       title: 'Established 6 August 2015',
@@ -251,7 +280,8 @@ const DIRECTORATE = {
 
     {
       id: 'portal',
-      no: '09',
+      no: '10',
+      short: 'The portal',
       kind: 'System',
       pin: 'Procurement Portal',
       title: 'NA Procurement Portal',
@@ -273,7 +303,8 @@ const DIRECTORATE = {
 
     {
       id: 'registry',
-      no: '10',
+      no: '11',
+      short: 'Registry',
       kind: 'System',
       pin: 'Contractor Registry',
       title: 'Contractor Registry',
