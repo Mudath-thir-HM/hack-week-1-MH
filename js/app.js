@@ -452,6 +452,20 @@
     }, 1500);
   }
 
+  if (/[?&]probe=([a-z]+)/.test(location.search)) {
+    var pid = /[?&]probe=([a-z]+)/.exec(location.search)[1];
+    setTimeout(function () {
+      var g = pinEls[pid];
+      var ring = g.querySelector('.ring');
+      var num = g.querySelector('.num');
+      ring.style.transition = 'none'; num.style.transition = 'none';
+      g.classList.add('is-hover');
+      setTimeout(function () {
+        document.title = 'RING ' + getComputedStyle(ring).fill + ' | NUM ' + getComputedStyle(num).fill;
+      }, 900);
+    }, 1200);
+  }
+
   var m = /^#n=([a-z]+)$/.exec(location.hash || '');
   if (m) setTimeout(function () { openNode(m[1]); }, location.search.indexOf('skip') > -1 ? 1500 : 3400);
 })();
