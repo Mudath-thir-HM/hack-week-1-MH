@@ -194,7 +194,7 @@
     var tl = gsap.timeline({ onComplete: function () { busy = false; } });
 
     tl.to(headline, { opacity: 0, y: -16, duration: 0.45, ease: 'power2.in' }, 0)
-      .to('.title-block, .scale-bar, .masthead', { opacity: 0, duration: 0.3 }, 0)
+      .to('.title-block, .scale-bar, .masthead, #close-app', { opacity: 0, duration: 0.3 }, 0)
       .to(plate, { filter: 'blur(3px)', duration: 0.9, ease: 'power2.inOut' }, 0)
       .to(plate, { x: dx, y: dy, scale: ZOOM, duration: 1.05, ease: 'power3.inOut' }, 0)
       .to(dossier, { clipPath: 'inset(0% 0% 0% 0%)', duration: 0.75, ease: 'power3.inOut' }, 0.42)
@@ -226,7 +226,8 @@
       .to(dossier, { clipPath: 'inset(0% 0% 0% 100%)', duration: 0.6, ease: 'power3.inOut' }, 0.12)
       .to(plate, { x: 0, y: 0, scale: BASE, filter: 'blur(0px)', duration: 1.0, ease: 'power3.inOut' }, 0.3)
       .to(headline, { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out' }, 0.65)
-      .to('.title-block, .scale-bar, .masthead', { opacity: 1, duration: 0.5 }, 0.7);
+      .to('.title-block, .scale-bar, .masthead', { opacity: 1, duration: 0.5 }, 0.7)
+      .to('#close-app', { opacity: 0.5, duration: 0.5 }, 0.7);
   }
 
   backBtn.addEventListener('click', closeNode);
@@ -263,7 +264,28 @@
 
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape' || e.key === 'Backspace') closeNode();
+    if (e.ctrlKey && e.shiftKey && (e.key === 'Q' || e.key === 'q')) closeApp();
   });
+
+  /* ------------------------------------------------ kiosk exit */
+  function closeApp() {
+    /* Edge will only honour this for app-like windows; if it is ignored we
+       tell the operator the one shortcut that always works. */
+    try {
+      window.open('', '_self');
+      window.close();
+    } catch (err) { /* ignored */ }
+
+    setTimeout(function () {
+      if (!document.hidden && window.closed !== true) {
+        var hint = document.getElementById('close-hint');
+        gsap.fromTo(hint, { opacity: 0, y: -6 }, { opacity: 1, y: 0, duration: 0.35, ease: 'power2.out' });
+        gsap.to(hint, { opacity: 0, duration: 0.4, delay: 5, ease: 'power2.in' });
+      }
+    }, 420);
+  }
+  var closeBtn = document.getElementById('close-app');
+  if (closeBtn) closeBtn.addEventListener('click', function (e) { e.stopPropagation(); closeApp(); });
 
   /* -------------------------------------------------------------- idle loop */
   var idleTimer = null, idlePhase = 0;
