@@ -28,7 +28,7 @@ Nothing is fetched at runtime; edit the file and reload.
 
 ## Behaviour
 
-- Boot: progress line + curtain, then the plate draws in.
+- Boot: an `Open the plate` start button gates the app; the curtain lifts, then the plate draws in.
 - Tap a room → zoom to it, dossier slides open, map blurs behind for depth.
 - `The plate` button (or `Esc`) → zoom back out.
 - Next / the index rail jump between rooms.
@@ -39,4 +39,4 @@ Nothing is fetched at runtime; edit the file and reload.
 ## Colours
 
 Deep bottle green `#07140F` / `#0E3B2C`, parchment `#E9E3D2`, brass `#A8853F` / `#C6AA68`,
-ivory `#F2ECDD`. Tangerine is used only for the Director's signature and the boot subtitle.
+ivory `#F2ECDD`. Tangerine is used only for the Director's signature.

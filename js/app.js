@@ -184,6 +184,7 @@
 
   var PLATE_X = 520, PLATE_Y = 236, BASE = 0.88, ZOOM = 2.15;
   var STATIC = location.search.indexOf('static') > -1;
+  var DEEP = (/^#n=([a-z]+)$/.exec(location.hash || '') || [])[1] || null;
   var openId = null, busy = false;
 
   gsap.set(plate, { scale: BASE, transformOrigin: '0px 0px', x: 0, y: 0 });
@@ -336,6 +337,7 @@
 
   /* breathing halos on the plate, for the unattended screen */
   function attract() {
+    if (halosOff) return;
     gsap.to('.node .halo', {
       opacity: 0.35, scale: 1.12, transformOrigin: '50% 50%',
       duration: 2.4, ease: 'sine.inOut', yoyo: true, repeat: -1, stagger: { each: 0.22, from: 'start' }
@@ -344,43 +346,36 @@
 
   /* ------------------------------------------------------------------- boot */
   function boot() {
-    if (location.search.indexOf('bootonly') > -1) {
-      document.getElementById('boot-bar').style.width = '68%';
-      document.getElementById('boot-pct').textContent = '68';
-      return;
-    }
+    /* design review: leave the boot screen standing as-is */
+    if (location.search.indexOf('bootonly') > -1) return;
+
     if (STATIC || location.search.indexOf('skip') > -1) {
       document.getElementById('boot').style.display = 'none';
       introMap();
       return;
     }
-    var bar = document.getElementById('boot-bar');
-    var pctEl = document.getElementById('boot-pct');
-    var statusEl = document.getElementById('boot-status');
-    var labels = ['Loading records', 'Setting the plate', 'Drawing the rooms', 'Ready'];
-    var prog = { v: 0 };
 
+    var startBtn = document.getElementById('boot-start');
     var fontsReady = (document.fonts && document.fonts.ready) ? document.fonts.ready : Promise.resolve();
+    var launched = false;
 
-    gsap.to(prog, {
-      v: 100, duration: 1.9, ease: 'power2.inOut',
-      onUpdate: function () {
-        var v = Math.round(prog.v);
-        bar.style.width = v + '%';
-        pctEl.textContent = (v < 10 ? '0' : '') + v;
-        statusEl.textContent = labels[Math.min(3, Math.floor(v / 30))];
-      }
-    });
+    function launch() {
+      if (launched) return;
+      launched = true;
+      startBtn.disabled = true;
+      startBtn.blur();
 
-    var floor = new Promise(function (r) { setTimeout(r, 2000); });
-    var ceiling = new Promise(function (r) { setTimeout(r, 5000); });
-    Promise.race([Promise.all([fontsReady, floor]), ceiling]).then(function () {
-      var tl = gsap.timeline();
-      tl.to('.boot-inner', { opacity: 0, y: -22, duration: 0.55, ease: 'power2.in' }, 0)
-        .add(introMap, 0.25)
-        .to('#boot', { yPercent: -100, duration: 1.15, ease: 'power4.inOut' }, 0.3)
-        .set('#boot', { display: 'none' });
-    });
+      Promise.race([fontsReady, new Promise(function (r) { setTimeout(r, 2000); })]).then(function () {
+        var tl = gsap.timeline();
+        tl.to('.boot-inner', { opacity: 0, y: -22, duration: 0.55, ease: 'power2.in' }, 0)
+          .add(introMap, 0.25)
+          .to('#boot', { yPercent: -100, duration: 1.15, ease: 'power4.inOut' }, 0.3)
+          .set('#boot', { display: 'none' });
+        if (DEEP) setTimeout(function () { openNode(DEEP); }, 2400);
+      });
+    }
+
+    startBtn.addEventListener('click', launch);
   }
 
   function introMap() {
@@ -398,15 +393,19 @@
       .to(['.title-block', '.scale-bar'], { opacity: 1, y: 0, duration: 0.6 }, 0.9)
       .add(attract, 1.4);
 
+    /* registered here, not at load, so the tap that starts the app is not the one that counts */
+    document.addEventListener('pointerdown', stopHalos, { once: true });
+
     if (STATIC) { tl.progress(1); gsap.killTweensOf('.node .halo'); gsap.set('.node .halo', { opacity: 0 }); }
   }
 
-  /* keep the halos from fighting the hover styles once they have run */
-  document.addEventListener('pointerdown', function once() {
+  /* keep the halos from fighting the hover styles once the user takes over */
+  var halosOff = false;
+  function stopHalos() {
+    halosOff = true;
     gsap.killTweensOf('.node .halo');
     gsap.set('.node .halo', { opacity: 0, scale: 1 });
-    document.removeEventListener('pointerdown', once);
-  });
+  }
 
   if (document.fonts && document.fonts.load) {
     document.fonts.load('600 50px Cinzel').catch(function () {});
@@ -466,6 +465,7 @@
     }, 1200);
   }
 
-  var m = /^#n=([a-z]+)$/.exec(location.hash || '');
-  if (m) setTimeout(function () { openNode(m[1]); }, location.search.indexOf('skip') > -1 ? 1500 : 3400);
+  if (DEEP && (STATIC || location.search.indexOf('skip') > -1)) {
+    setTimeout(function () { openNode(DEEP); }, 1500);
+  }
 })();
